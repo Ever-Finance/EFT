@@ -6,7 +6,7 @@ contract EFT {
     string public name = "Ever Finance Token";
     string public symbol = "EFT";
     uint8 public decimals = 2;
-    uint256 public totalSupply = 100000000;
+    uint256 public totalSupply = 10000000000;
 
     // Mapping from addresses to balances
     mapping (address => uint256) public balances;
