@@ -2,29 +2,41 @@
 
 pragma solidity ^0.8.7;
 
-import "https://github.com/OpenZeppelin/openzeppelin-solidity/contracts/token/ERC20/ERC20.sol";
+contract EFT {
+    string public name = "Ever Finance Token";
+    string public symbol = "EFT";
+    uint8 public decimals = 2;
+    uint256 public totalSupply = 100000000;
 
-// Name of the token
-string public name = "Ever Finance Token";
+    // Mapping from addresses to balances
+    mapping (address => uint256) public balances;
 
-// Symbol of the token
-string public symbol = "EFT";
+    // An event that is triggered whenever a transfer occurs
+    event Transfer(
+        address indexed from,
+        address indexed to,
+        uint256 value
+    );
 
-// Number of decimal places for the token
-uint8 public decimals = 2;
+    // Initializes the contract with the total supply of EFT
+    constructor() {
+        balances[msg.sender] = totalSupply;
+    }
 
-// Total supply of the token
-uint256 public totalSupply = 100000000;
+    // Transfers a specified amount of EFT from one address to another
+    function transfer(
+        address recipient,
+        uint256 amount
+    ) public returns (bool success) {
+        require(balances[msg.sender] >= amount, "Insufficient balance.");
+        balances[msg.sender] -= amount;
+        balances[recipient] += amount;
+        emit Transfer(msg.sender, recipient, amount);
+        return true;
+    }
 
-// ERC20 contract from OpenZeppelin
-ERC20 public token;
-
-// Constructor function
-constructor() public {
-    // Create the ERC20 token
-    token = new ERC20(name, symbol, decimals, totalSupply);
-
-    // Transfer all tokens to the contract owner
-    token.transfer(msg.sender, totalSupply);
+    // Returns the balance of a specified address
+    function balanceOf(address owner) public view returns (uint256 balance) {
+        return balances[owner];
+    }
 }
-//End token contract
