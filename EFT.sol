@@ -27,3 +27,4 @@ constructor() public {
     // Transfer all tokens to the contract owner
     token.transfer(msg.sender, totalSupply);
 }
+//End token contract
