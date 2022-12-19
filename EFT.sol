@@ -8,22 +8,22 @@ contract EFT {
     uint8 public decimals = 2;
     uint256 public totalSupply = 10000000000;
 
-    // Mapping from addresses to balances
+    // Mapeamento de endereços para saldos
     mapping (address => uint256) public balances;
 
-    // An event that is triggered whenever a transfer occurs
+    // Um evento que é acionado sempre que ocorre uma transferência
     event Transfer(
         address indexed from,
         address indexed to,
         uint256 value
     );
 
-    // Initializes the contract with the total supply of EFT
+    // Inicializa o contrato com o fornecimento total de EFT
     constructor() {
         balances[msg.sender] = totalSupply;
     }
 
-    // Transfers a specified amount of EFT from one address to another
+    // Transfere uma quantidade especificada de EFT de um endereço para outro
     function transfer(
         address recipient,
         uint256 amount
@@ -35,7 +35,7 @@ contract EFT {
         return true;
     }
 
-    // Returns the balance of a specified address
+    // Retorna o saldo de um endereço especificado
     function balanceOf(address owner) public view returns (uint256 balance) {
         return balances[owner];
     }
